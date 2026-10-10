@@ -9,7 +9,7 @@ connectDb();
 
 app.use(
   cors({
-    origin: ['http://localhost:5173', 'http://127.0.0.1:5173', 'http://seekgrass-client.onrender.com'],
+    origin: ['http://localhost:5173', 'http://127.0.0.1:5173', 'https://seekgrass-client.onrender.com'],
     credentials: true,
   }),
 );

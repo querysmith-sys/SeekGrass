@@ -37,6 +37,7 @@ function RiddleSubmissionForm({ riddle, onSubmit, isSubmitting }) {
           className="file-input"
           type="file"
           accept="image/*"
+          capture="environment"
           onChange={(event) => setSelectedFile(event.target.files?.[0] ?? null)}
         />
       </div>

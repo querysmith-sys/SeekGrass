@@ -34,9 +34,46 @@ export const handleRiddleSubmissionVerification = async (base64String: string, P
         })
         console.log(response.text);
         return response.text;
-    } catch (error) {
-        console.error("Failed to verify Submission: ", error)
-        throw new Error("Failed to verify Submission. Try again.");
+    } catch (error: any) {
 
+        const statusCode = error.status || error.code;
+
+        if (statusCode === 429) {
+            console.warn("Gemini 3.8 Flash rate limit hit. Activating multimodal fallback...");
+
+            try {
+                // 2. Multimodal Fallback (Flash-Lite natively handles the base64 image)
+                const responseSecond = await ai.models.generateContent({
+                    model: 'gemini-3.5-flash-lite', // Switch to 'gemini-3.6-flash' if you prefer higher reasoning
+                    contents: [
+                        {
+                            inlineData: {
+                                data: base64String,
+                                mimeType: mimeType
+                            }
+                        },
+                        {
+                            text: `
+                        Riddle to verify:
+                        ${riddle}
+
+                        Analyze the uploaded image against this riddle.
+                    `
+                        },
+                    ],
+                    config: {
+                        systemInstruction: PROMPT,
+                        responseMimeType: "application/json"
+                    }
+                });
+
+                console.log("Fallback model success:", responseSecond.text);
+                return responseSecond.text;
+
+            } catch (fallbackError: any) {
+                console.error("Fallback model also failed:", fallbackError);
+                throw new Error("Verification service temporarily unavailable. Please try again.");
+            }
+        }
     }
 }

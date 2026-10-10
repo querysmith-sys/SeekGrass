@@ -1,0 +1,21 @@
+# Operating System Files
+Thumbs.db
+.DS_Store
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+
+# Dependencies and Build Outputs
+node_modules/
+bin/
+obj/
+dist/
+out/
+
+# Env / Secrets / Logs
+.env
+.env.local
+*.log

@@ -42,7 +42,7 @@ export const handleRiddleSubmissionVerification = async (base64String: string, P
             console.warn("Gemini 3.8 Flash rate limit hit. Activating multimodal fallback...");
 
             try {
-                // 2. Multimodal Fallback (Flash-Lite natively handles the base64 image)
+
                 const responseSecond = await ai.models.generateContent({
                     model: 'gemini-3.5-flash-lite', // Switch to 'gemini-3.6-flash' if you prefer higher reasoning
                     contents: [

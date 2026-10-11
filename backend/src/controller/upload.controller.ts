@@ -56,7 +56,10 @@ export const handleUploadedRiddle = async (req: Request, res: Response) => {
         const base64file = fileBuffer.toString('base64');
         const mimeType = file.mimetype;
         const result = await handleRiddleSubmissionVerification(base64file, SYSTEM_PROMPT, riddle, mimeType);
-        res.status(200).json({ message: result })
+        if (!result) {
+            return res.status(500).json({ error: true, message: "Failed to process the uploaded file" });
+        }
+        return res.status(200).json(result);
     } catch (error: any) {
         console.error("Failed to handle upload & verification: ", error)
         res.status(500).json({ message: error.message })

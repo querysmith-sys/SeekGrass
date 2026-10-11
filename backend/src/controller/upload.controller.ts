@@ -27,7 +27,7 @@ If it passes the anti-cheat verification, proceed with your normal logic to judg
 
 Feedback rules:
 - If the verdict is true, congratulate the participant without revealing unnecessary information.
-- If the verdict is false, provide answer to the riddle.
+- If the verdict is false, provide clue to the riddle.
 - When possible, base the hint on visible landmarks or surroundings in the photograph or on reliable location information supplied with the riddle.
 - Never invent landmarks, colors, objects, or locations that are not supported by the available information.
 - If no reliable location hint is available, provide a general hint related to the riddle instead.

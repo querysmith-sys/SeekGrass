@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import LoadingIndicator from './components/LoadingIndicator';
 import RiddleDisplay from './components/RiddleDisplay';
 import RiddleSubmissionForm from './components/RiddleSubmissionForm';
+import BulkQuestionUpload from './components/BulkQuestionUpload';
 import { fetchRandomRiddle, submitRiddleVerification } from './services/api';
 
 const HERO_HEADLINE = 'Hunt the truth.';
@@ -12,6 +13,7 @@ function App() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [verificationResult, setVerificationResult] = useState(null);
+  const [isBulkUploadOpen, setIsBulkUploadOpen] = useState(false);
   const [typedHeadline, setTypedHeadline] = useState(() =>
     window.matchMedia('(prefers-reduced-motion: reduce)').matches ? HERO_HEADLINE : '',
   );
@@ -188,6 +190,15 @@ function App() {
             >
               SOUND: {soundEnabled ? 'ON' : 'OFF'}
             </button>
+            <button
+              type="button"
+              className="secondary-button"
+              onClick={() => setIsBulkUploadOpen((isOpen) => !isOpen)}
+              aria-expanded={isBulkUploadOpen}
+              aria-controls="bulk-question-upload"
+            >
+              {isBulkUploadOpen ? 'CLOSE IMPORT' : 'ADD RIDDLES +'}
+            </button>
             <button type="button" className="secondary-button" onClick={loadRiddle}>
               NEW RIDDLE
             </button>
@@ -238,6 +249,10 @@ function App() {
             </div>
           </div>
         </section>
+
+        {isBulkUploadOpen && (
+          <BulkQuestionUpload onClose={() => setIsBulkUploadOpen(false)} />
+        )}
 
         <div id="hunt-panel" className="case-grid">
           {isLoadingRiddle ? (

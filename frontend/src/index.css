@@ -295,6 +295,168 @@ textarea:focus-visible {
   align-items: start;
 }
 
+.bulk-upload-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 24px 22px;
+}
+
+.bulk-upload-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.bulk-upload-heading h2 {
+  margin: 14px 0 4px;
+  font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+  line-height: 1.1;
+}
+
+.bulk-upload-heading p,
+.bulk-upload-note,
+.bulk-preview-more {
+  margin: 0;
+  color: var(--muted);
+}
+
+.bulk-upload-instructions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: upload-step;
+}
+
+.bulk-upload-instructions li {
+  min-height: 74px;
+  padding: 12px;
+  border: 2px solid var(--border);
+  background: #f8f8f5;
+  counter-increment: upload-step;
+}
+
+.bulk-upload-instructions li::before {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted);
+  content: 'STEP 0' counter(upload-step);
+  font-family: 'IBM Plex Mono', 'JetBrains Mono', monospace;
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.bulk-upload-instructions code {
+  padding: 2px 5px;
+  border: 1px solid var(--border);
+  background: var(--accent);
+  color: var(--text);
+}
+
+.bulk-upload-actions {
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.bulk-file-picker {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  min-height: 48px;
+  padding: 0.75rem 1rem;
+  overflow: hidden;
+  border: 2px solid var(--border);
+  background: #f8f8f5;
+  font-family: 'IBM Plex Mono', 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.bulk-file-picker input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.bulk-upload-note {
+  font-size: 0.8rem;
+}
+
+.bulk-upload-message,
+.bulk-upload-success {
+  padding: 12px 14px;
+  border: 2px solid var(--border);
+  background: #f8f8f5;
+  font-family: 'IBM Plex Mono', 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.bulk-upload-success {
+  border-left: 8px solid var(--success);
+  background: #f4faf1;
+}
+
+.bulk-upload-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border: 2px solid var(--border);
+  background: #f9f9f8;
+}
+
+.bulk-preview-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-family: 'IBM Plex Mono', 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+}
+
+.bulk-preview-heading span {
+  color: var(--muted);
+}
+
+.bulk-upload-preview ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bulk-upload-preview li {
+  padding: 10px 12px;
+  border-left: 4px solid var(--accent);
+  background: var(--panel);
+  white-space: pre-line;
+}
+
+.bulk-upload-preview .primary-button {
+  align-self: flex-start;
+}
+
 .riddle-card,
 .submission-form {
   display: flex;
@@ -581,6 +743,22 @@ textarea:focus-visible {
 
   .hero-panel {
     padding: 18px 18px;
+  }
+
+  .bulk-upload-instructions {
+    grid-template-columns: 1fr;
+  }
+
+  .bulk-upload-heading {
+    flex-direction: column;
+  }
+
+  .bulk-upload-actions > * {
+    width: 100%;
+  }
+
+  .bulk-upload-preview .primary-button {
+    width: 100%;
   }
 
   .hero-telemetry {

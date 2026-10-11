@@ -7,7 +7,7 @@ export const api = axios.create({
 });
 
 export const fetchRandomRiddle = async () => {
-  const response = await api.get('/riddles');
+  const response = await api.get('/api/riddles');
   const riddle = response.data?.[0]?.randomQuestion?.questionText;
 
   if (!riddle) {
@@ -38,11 +38,20 @@ export const submitRiddleVerification = async ({ riddle, image }) => {
   formData.append('riddle', riddle);
   formData.append('image', image);
 
-  const response = await api.post('/verify', formData, {
+  const response = await api.post('/api/verify', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
   });
 
   return parseVerificationPayload(response.data?.message ?? response.data);
+};
+
+export const submitRiddleQuestions = async (questions) => {
+  if (!Array.isArray(questions) || questions.length === 0) {
+    throw new Error('At least one riddle question is required.');
+  }
+
+  const response = await api.post('/api/questions', { questions });
+  return response.data;
 };
